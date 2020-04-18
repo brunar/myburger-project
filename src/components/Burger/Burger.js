@@ -3,12 +3,22 @@ import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
-    const transformedIngredients = Object.keys(props.ingredients)
+    let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey => {
             return [...Array(props.ingredients[igKey])].map((_, i) => {
                 return <BurgerIngredient key={igKey + i} type={igKey} />;
             });
-        }); //on 2nd map() used _ as argument and i for index, make a second array for case like doulbe cheese, doulbe meat
+        }) //on 2nd map() used _ as argument and i for index, make a second array for case like doulbe cheese, doulbe meat
+        //reducing a Group of Array in One Array
+        .reduce((arr, el) => {
+            return arr.concat(el);
+        }, []); //Here [] starts with null value
+
+    console.log(transformedIngredients);
+
+    if (transformedIngredients.length === 0) {
+        transformedIngredients = <p>Please start adding ingredients!</p>
+    }
 
     return (
         <div className={classes.Burger}>
