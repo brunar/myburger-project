@@ -8,9 +8,12 @@ const controls = [
     { label: 'Cheese', type: 'cheese' },
     { label: 'Meat', type: 'meat' }
 ]
-
+// {props.price.toFixed(2)} **** .toFixed(2) - fix the price to two decimal places 0.00
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
+
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+
         {controls.map(ctrl => (
             <BuildControl
                 key={ctrl.label}
