@@ -6,8 +6,12 @@ import classes from './SideDrawer.module.css';
 const sideDrawer = (props) => {
     return (
         <div className={classes.SideDrawer}>
-            {/* height here is a props, coming from syle-inline logo component */}
-            <Logo height="11%" />
+            {/* 1st Way - height here is a props, coming from syle-inline logo component
+                <Logo height="11%" />
+            */}
+            <div className={classes.Logo}>
+                <Logo />
+            </div>
             <nav>
                 <NavigationItems />
             </nav>
