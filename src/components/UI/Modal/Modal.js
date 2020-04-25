@@ -10,7 +10,9 @@ class Modal extends Component {
         //     return true;
         // }
         //Shortcut for the code above
-        return nextProps.show !== this.props.show
+        //Comparation if the nextProps is diferent from the old state 
+        //or if the children has some update than to show loading spinner when modal move-out
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children
 
     }
 
