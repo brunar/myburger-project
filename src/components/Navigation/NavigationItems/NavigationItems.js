@@ -4,10 +4,10 @@ import NavigationItem from './NavigationItem/NavigationItem';
 
 const navigationItems = (props) => (
     <ul className={classes.NavigationItems}>
-
-        <NavigationItem link="/" active>Burger Builder</NavigationItem>
+        {/* This exact becames a props inside NavigationItem Component */}
+        <NavigationItem link="/" exact>Burger Builder</NavigationItem>
         {/* shortcut active does means active={true} but for bolean */}
-        <NavigationItem link="/">Checkout</NavigationItem>
+        <NavigationItem link="/orders">Orders</NavigationItem>
     </ul>
 );
 
