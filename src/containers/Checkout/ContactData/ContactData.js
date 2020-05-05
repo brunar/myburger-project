@@ -62,15 +62,22 @@ class ContactData extends Component {
         loading: false
     }
     orderHandler = (event) => {
-        //prevent the button submit the form when loaded the page
+        //prevent default do not send a resquest submit to the form when loaded or reload the page
         event.preventDefault();
         //console.log(this.props.ingredients);
 
         this.setState({ loading: true });
 
+        const formData = {}; //Empty object
+        for (let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
+
+        }
+
         const order = {
             ingredients: this.props.ingredients,
-            price: this.props.price
+            price: this.props.price,
+            orderData: formData
         }
         //Comment all this code axios to see the spinner all the time
         axios.post('/orders.json', order)
@@ -84,7 +91,7 @@ class ContactData extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
-        console.log(event.target.value);
+        //console.log(event.target.value);
         const updatedOrderForm = {
             ...this.state.orderForm
         }
@@ -105,7 +112,7 @@ class ContactData extends Component {
             });
         }
         let form = (
-            <form>
+            <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formElement => (
                     <Input
                         key={formElement.id}
@@ -114,7 +121,7 @@ class ContactData extends Component {
                         value={formElement.config.value}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                <Button btnType="Success" clickedBtn={this.orderHandler}>ORDER</Button>
+                <Button btnType="Success">ORDER</Button>
             </form>
         );
         if (this.state.loading) {
