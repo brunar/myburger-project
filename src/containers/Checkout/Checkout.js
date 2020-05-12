@@ -1,29 +1,10 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
-    state = {
-        ingredients: null,
-        price: 0
-    }
-
-    componentWillMount() {
-        const query = new URLSearchParams(this.props.location.search);
-        const ingredients = {}
-        let price = 0;
-
-        for (let param of query.entries()) {
-            // ['salad', '1']
-            if (param[0] === 'price') {
-                price = param[1];
-            } else {
-                ingredients[param[0]] = +param[1];
-            }
-        }
-        this.setState({ ingredients: ingredients, totalPrice: price });
-    }
 
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
@@ -36,15 +17,24 @@ class Checkout extends Component {
         return (
             <div>
                 <CheckoutSummary
-                    ingredients={this.state.ingredients}
+                    ingredients={this.props.ings}
                     checkoutCancelled={this.checkoutCancelledHandler}
                     checkoutContinued={this.checkoutContinuedHandler} />
                 {/* If your render the component manually in Route you can pass props into the component */}
                 <Route path={this.props.match.path + '/contact-data'}
-                    render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />)} />
+                    //render={(props) => (<ContactData ingredients={this.props.ings} price={this.state.totalPrice} {...props} />)} 
+                    component={ContactData}
+                />
             </div>
         );
     }
 }
+const mapStatetoProps = state => {
+    return {
+        ings: state.ingredients
+    }
+}
 
-export default Checkout;
+export default connect(mapStatetoProps)(Checkout);
+// If you have only mapDispatchToProps, it is a 2nd argument always then write as example bellow
+// export default connect(null, mapDispatchToProps)(Checkout);
