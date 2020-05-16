@@ -8,9 +8,8 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import axios from '../../axios-order';
 import * as burgerBuilderActions from '../../store/actions/index'; //index could be omitted here.
-
+import axios from '../../axios-order';
 
 
 class BurgerBuilder extends Component {
@@ -21,21 +20,11 @@ class BurgerBuilder extends Component {
 
     //Ingredients has to have same key-words(salad,bacon,cheese) that are using in the switch cases();
     state = {
-        purchasing: false,
-        loading: false,
-        error: false
+        purchasing: false
     }
     //componentDidMount lifecycle method to fetching the data
     componentDidMount() {
         console.log(this.props);
-
-        // axios.get('https://myburger-react-ea3fc.firebaseio.com/ingredients.json')
-        //     .then(response => {
-        //         this.setState({ ingredients: response.data });
-        //     })
-        //     .catch(error => {
-        //         this.setState({ error: true });
-        //     });
     }
 
     updatePurchaseState = (ingredients) => {
@@ -92,10 +81,6 @@ class BurgerBuilder extends Component {
                 price={this.props.pprice}
                 purchaseCancelled={this.purchaseHandlerCancel}
                 purchaseContinued={this.purchaseContinueHandler} />;
-        }
-        //After
-        if (this.state.loading) {
-            orderSummary = <Spinner />
         }
 
         return (
