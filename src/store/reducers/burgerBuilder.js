@@ -37,7 +37,17 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_INGREDIENTS:
             return {
                 ...state,
-                ingredients: action.ingredientsA,
+                // This is good because you can add many types of ingredients
+                //ingredients: action.ingredientsA,
+
+                //But in this app burguer has a swicth case that is not prepared to works with new ingredients in the list
+                //Optional - To order the list, salad first and not ordering from firebase
+                ingredients: {
+                    salad: action.ingredientsA.salad,
+                    bacon: action.ingredientsA.bacon,
+                    cheese: action.ingredientsA.cheese,
+                    meat: action.ingredientsA.meat,
+                },
                 error: false
             };
         case actionTypes.FETCH_INGREDIENTS_FAILED:
