@@ -91,8 +91,7 @@ class ContactData extends Component {
                 valid: true
             }
         },
-        formIsValid: false,
-        loading: false
+        formIsValid: false
     }
     orderHandler = (event) => {
         //prevent default do not send a resquest submit to the form when loaded or reload the page
@@ -177,7 +176,7 @@ class ContactData extends Component {
                 <Button btnType="Success" disabledBr={!this.state.formIsValid}>ORDER</Button>
             </form>
         );
-        if (this.state.loading) {
+        if (this.props.loadingg) {
             form = <Spinner />
         }
         return (
@@ -192,7 +191,8 @@ class ContactData extends Component {
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        pprice: state.totalPrice
+        pprice: state.totalPrice,
+        loadingg: state.loading
     }
 }
 
