@@ -6,7 +6,7 @@ export const purchaseBurgerSuccess = (id, orderDataArg) => {
     return {
         type: actionTypes.PURCHASE_BURGER_SUCESS,
         orderId: id,
-        orderDataRed: orderDataArg
+        orderDataRedu: orderDataArg
     }
 };
 
@@ -22,7 +22,6 @@ export const purchaseBurgerFail = (errorArg) => {
 
 export const purchaseBurgerStart = (orderDataArgB) => {
     return dispatchIt => {
-        //Comment all this code axios to see the spinner all the time
         axios.post('/orders.json', orderDataArgB)
             .then(response => {
                 console.log(response.data);
