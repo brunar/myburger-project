@@ -6,7 +6,7 @@ export const purchaseBurgerSuccess = (id, orderDataArg) => {
     return {
         type: actionTypes.PURCHASE_BURGER_SUCESS,
         orderId: id,
-        orderDataBr: orderDataArg
+        orderDataRed: orderDataArg
     }
 };
 
