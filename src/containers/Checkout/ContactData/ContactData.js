@@ -189,16 +189,17 @@ class ContactData extends Component {
 }
 
 const mapStateToProps = state => {
+    // burgerBuilderSS and orderSS was declared at combineReducers on Index.js/App
     return {
-        ings: state.ingredients,
-        pprice: state.totalPrice,
-        loadingg: state.loading
+        ings: state.burgerBuilderSS.ingredients,
+        pprice: state.burgerBuilderSS.totalPrice,
+        loadingg: state.orderSS.loading
     }
 }
 
 const mapDispatchToProps = dispatchX => {
     return {
-        onOrderBurger: (orderDataArgC) => dispatchX(actions.purchaseBurgerStart(orderDataArgC))
+        onOrderBurger: (orderDataArgC) => dispatchX(actions.purchaseBurger(orderDataArgC))
     }
 }
 export default connect(

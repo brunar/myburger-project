@@ -34,10 +34,11 @@ export const purchaseBurger = (orderDataArgB) => {
         axios.post('/orders.json', orderDataArgB)
             .then(response => {
                 console.log(response.data);
-                dispatchIt(purchaseBurgerSuccess(response.data, orderDataArgB));
+                //response.data without .name is coming the id
+                dispatchIt(purchaseBurgerSuccess(response.data.name, orderDataArgB));
             })
             .catch(error => {
-                dispatchIt(purchaseBurgerFail());
+                dispatchIt(purchaseBurgerFail(error));
             })
     }
 };

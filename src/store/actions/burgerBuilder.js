@@ -37,7 +37,7 @@ export const initIngredients = () => {
                 dispathBr(setIngredients(response.data))
             })
             .catch(error => {
-                dispathBr(fetchIngredientsFailed())
+                dispathBr(fetchIngredientsFailed(error))
             });
     }
 }

@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    order: [],
+    orders: [],
     loading: false
 }
 
@@ -14,13 +14,13 @@ const reducer = (state = initialState, action) => {
             }
         case actionTypes.PURCHASE_BURGER_SUCESS:
             const newOrder = {
-                ...action.order.orderDataRedu,
+                ...action.orderDataRedu,
                 id: action.orderId
             }
             return {
                 ...state,
                 loading: false,
-                orders: action.orders.concat(newOrder)
+                orders: state.orders.concat(newOrder)
             }
         case actionTypes.PURCHASE_BURGER_FAIL:
             return {

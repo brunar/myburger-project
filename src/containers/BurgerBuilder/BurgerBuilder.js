@@ -95,10 +95,11 @@ class BurgerBuilder extends Component {
     };
 }
 const mapStateToProps = state => {
+    // burgerBuilderSS was declared at combineReducers on Index.js/App
     return {
-        ings: state.ingredients,
-        pprice: state.totalPrice,
-        error: state.error
+        ings: state.burgerBuilderSS.ingredients,
+        pprice: state.burgerBuilderSS.totalPrice,
+        error: state.burgerBuilderSS.error
     };
 }
 const mapDispatchToProps = dispatch => {
