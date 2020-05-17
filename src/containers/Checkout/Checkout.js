@@ -17,8 +17,10 @@ class Checkout extends Component {
         let summary = <Redirect to="/" />
         //If props ingredients is available
         if (this.props.ings) {
+            const purchasedRedirect = this.props.purchasedIt ? <Redirect to="/" /> : null;
             summary = (
                 <div>
+                    {purchasedRedirect}
                     <CheckoutSummary
                         ingredients={this.props.ings}
                         checkoutCancelled={this.checkoutCancelledHandler}
@@ -42,10 +44,13 @@ class Checkout extends Component {
 }
 const mapStatetoProps = state => {
     return {
-        ings: state.burgerBuilderSS.ingredients
+        ings: state.burgerBuilderSS.ingredients,
+        purchasedIt: state.orderSS.purchased
     }
 }
 
-export default connect(mapStatetoProps)(Checkout);
+export default connect(
+    mapStatetoProps
+)(Checkout);
 // If you have only mapDispatchToProps, it is a 2nd argument always then write as example bellow
 // export default connect(null, mapDispatchToProps)(Checkout);
