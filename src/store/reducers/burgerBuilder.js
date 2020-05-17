@@ -48,6 +48,7 @@ const reducer = (state = initialState, action) => {
                     cheese: action.ingredientsA.cheese,
                     meat: action.ingredientsA.meat,
                 },
+                totalPrice: 4, //hardcode price same as initialState on top of the page
                 error: false
             };
         case actionTypes.FETCH_INGREDIENTS_FAILED:
