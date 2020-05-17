@@ -48,3 +48,50 @@ export const purchaseInit = () => {
         type: actionTypes.PURCHASE_INIT
     }
 }
+
+
+export const fetchOrdersSuccess = (ordersArg) => {
+    return {
+        type: actionTypes.FETCH_ORDERS_SUCESS,
+        ordersRedu: ordersArg
+    }
+}
+
+export const fetchOrdersFail = (errorArg) => {
+    return {
+        type: actionTypes.FETCH_ORDERS_FAIL,
+        errorRedu: errorArg
+    }
+}
+
+export const fetchOrdersStart = () => {
+    return {
+        type: actionTypes.FETCH_ORDERS_START
+    }
+}
+
+export const fetchOrders = () => {
+
+    return dispatch => {
+        dispatch(fetchOrdersStart()); //To see the spinner for fisrt time while is starting.
+
+        axios.get('/orders.json')
+            .then(res => {
+                //Better format data in the actions than in the reducer
+                //console.log(res.data);
+                const fetchedOrders = [];
+                for (let key in res.data) {
+                    fetchedOrders.push({
+                        //spread old object to make a new Object with id
+                        ...res.data[key],
+                        id: key
+                    });
+                }
+                dispatch(fetchOrdersSuccess(fetchedOrders));
+            })
+            .catch(err => {
+                dispatch(fetchOrdersFail(err));
+            });
+    }
+
+}

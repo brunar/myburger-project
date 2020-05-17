@@ -28,8 +28,26 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 purchased: true,
                 orders: state.orders.concat(newOrder)
+                //In the order reducer, purchaseBurgerSuccess where I store this new order,
+                //that doesn't really matter because we load orders from the server anyways when you visit the order page.
             }
         case actionTypes.PURCHASE_BURGER_FAIL:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.FETCH_ORDERS_START:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.FETCH_ORDERS_SUCESS:
+            return {
+                ...state,
+                orders: action.ordersRedu,
+                loading: false
+            }
+        case actionTypes.FETCH_ORDERS_FAIL:
             return {
                 ...state,
                 loading: false
