@@ -8,6 +8,7 @@ const navigationItems = (props) => (
         <NavigationItem link="/" exact>Burger Builder</NavigationItem>
         {/* shortcut active does means active={true} but for bolean */}
         <NavigationItem link="/orders">Orders</NavigationItem>
+        <NavigationItem link="/auth">Authenticate</NavigationItem>
     </ul>
 );
 
