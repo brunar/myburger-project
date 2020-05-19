@@ -22,7 +22,7 @@ export const authFail = (errorArg) => {
     };
 }
 
-export const auth = (emailArg, passwordArg) => {
+export const auth = (emailArg, passwordArg, isSignUpArg) => {
     //Need Redux Thunk - is Async
     return dispatch => {
         dispatch(authStart());
@@ -31,7 +31,11 @@ export const auth = (emailArg, passwordArg) => {
             password: passwordArg,
             returnSecureToken: true
         }
-        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDVOE8w6W1Lh-s7Pog58XvH8GrzGc4eHXc', authData)
+        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDVOE8w6W1Lh-s7Pog58XvH8GrzGc4eHXc';
+        if (!isSignUpArg) {
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDVOE8w6W1Lh-s7Pog58XvH8GrzGc4eHXc';
+        }
+        axios.post(url, authData)
             .then(response => {
                 console.log(response);
                 dispatch(authSuccess(response.data));
