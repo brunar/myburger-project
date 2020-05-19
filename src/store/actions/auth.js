@@ -22,7 +22,18 @@ export const authFail = (errorArg) => {
         errorAct: errorArg
     };
 }
-
+export const logout = () => {
+    return {
+        type: actionsTypes.AUTH_LOGOUT
+    }
+}
+export const checkAuthTimeout = (expirationTime) => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(logout());
+        }, expirationTime * 1000); // to be one hour 3600
+    }
+}
 export const auth = (emailArg, passwordArg, isSignUpArg) => {
     //Need Redux Thunk - is Async
     return dispatch => {
@@ -40,6 +51,7 @@ export const auth = (emailArg, passwordArg, isSignUpArg) => {
             .then(response => {
                 console.log(response);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
+                dispatch(checkAuthTimeout(response.data.expiresIn)); //expiresIn property from firebase, same as localId and idToken
             })
             .catch(err => {
                 console.log(err.response);
