@@ -26,12 +26,12 @@ export const purchaseBurgerStart = () => {
 };
 
 // Async - Asynchronous action creators
-export const purchaseBurger = (orderDataArgB) => {
+export const purchaseBurger = (orderDataArgB, tokenV) => {
     return dispatchIt => {
 
         dispatchIt(purchaseBurgerStart());
 
-        axios.post('/orders.json', orderDataArgB)
+        axios.post('/orders.json?auth=' + tokenV, orderDataArgB)
             .then(response => {
                 console.log(response.data);
                 //response.data without .name is coming the id
@@ -70,12 +70,12 @@ export const fetchOrdersStart = () => {
     }
 }
 
-export const fetchOrders = () => {
+export const fetchOrders = (tokenAu) => {
 
     return dispatch => {
         dispatch(fetchOrdersStart()); //To see the spinner for fisrt time while is starting.
 
-        axios.get('/orders.json')
+        axios.get('/orders.json?auth=' + tokenAu)
             .then(res => {
                 //Better format data in the actions than in the reducer
                 //console.log(res.data);
