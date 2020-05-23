@@ -42,6 +42,13 @@ class Auth extends Component {
         isSignUp: true
     }
 
+    componentDidMount() {
+        //if not equal true OR 
+        if (!this.props.buildingBurger && this.props.authRedirectPathPP !== '/') {
+            this.props.onSetAuthRedirectPath(); //Do not need to pass an Argument here because is alredy hardcode in mapDispatchToProps, And there is not passing by Argument
+        }
+    }
+
     checkValidity = (value, rules) => {
         let isValid = true;
 
@@ -114,7 +121,7 @@ class Auth extends Component {
 
         let authRedirect = null;
         if (this.props.isAuthenticated) {
-            authRedirect = <Redirect to="/" />
+            authRedirect = <Redirect to={this.props.authRedirectPathPP} />
         }
 
         return (
@@ -137,14 +144,17 @@ const mapStateToProps = state => {
     return {
         loadingg: state.authSS.loading,
         errorPr: state.authSS.error,
-        isAuthenticated: state.authSS.token !== null
+        isAuthenticated: state.authSS.token !== null,
+        buildingBurger: state.burgerBuilderSS.building,
+        authRedirectPathPP: state.authSS.authRedirectPath
 
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignUpA) => dispatch(actions.auth(email, password, isSignUpA))
+        onAuth: (email, password, isSignUpA) => dispatch(actions.auth(email, password, isSignUpA)),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
     }
 }
 

@@ -5,6 +5,7 @@ const initialState = {
     ingredients: null,
     totalPrice: 4,
     error: false,
+    building: false
 }
 
 //Typically name constants you want to use as GLOBAL constants in UPPERCASE
@@ -21,7 +22,8 @@ const addIngredient = (state, action) => {
     const updatedIngredients = updatedObject(state.ingredients, updatedIngredient);
     const updatedState = {
         ingredients: updatedIngredients,
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+        building: true
     }
     return updatedObject(state, updatedState);
 }
@@ -32,7 +34,8 @@ const removeIngredient = (state, action) => {
     const updatedIngs = updatedObject(state.ingredients, updatedIng);
     const updatedSt = {
         ingredients: updatedIngs,
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+        building: true
     }
     return updatedObject(state, updatedSt);
 }
@@ -46,7 +49,8 @@ const setIngredients = (state, action) => {
             meat: action.ingredientsA.meat,
         },
         totalPrice: 4, //hardcode price same as initialState on top of the page
-        error: false
+        error: false,
+        building: false
     });
     // This is good because you can add many types of ingredients
     // Example: ingredients: action.ingredientsA,
