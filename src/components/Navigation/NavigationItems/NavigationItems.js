@@ -7,7 +7,7 @@ const navigationItems = (props) => (
         {/* This exact becames a props inside NavigationItem Component */}
         <NavigationItem link="/" exact>Burger Builder</NavigationItem>
         {/* shortcut active does means active={true} but for bolean */}
-        <NavigationItem link="/orders">Orders</NavigationItem>
+        {props.isAuthenticatedPr ? <NavigationItem link="/orders">Orders</NavigationItem> : null}
         {!props.isAuthenticatedPr
             ? <NavigationItem link="/auth">Authenticate</NavigationItem>
             : <NavigationItem link="/logout">Logout</NavigationItem>}
