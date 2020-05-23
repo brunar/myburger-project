@@ -23,6 +23,9 @@ export const authFail = (errorArg) => {
     };
 }
 export const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expirationDate');
+    localStorage.removeItem('userId');
     return {
         type: actionsTypes.AUTH_LOGOUT
     }
@@ -50,6 +53,10 @@ export const auth = (emailArg, passwordArg, isSignUpArg) => {
         axios.post(url, authData)
             .then(response => {
                 console.log(response);
+                const expirationDateC = new Date(new Date().getTime() + response.data.expiresIn * 1000); //get new date + expiration Time is seconds than multiple to be a minutes
+                localStorage.setItem('token', response.data.idToken);
+                localStorage.setItem('expirationDate', expirationDateC);
+                localStorage.setItem('userId', response.data.localId);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
                 dispatch(checkAuthTimeout(response.data.expiresIn)); //expiresIn property from firebase, same as localId and idToken
             })
@@ -64,5 +71,25 @@ export const setAuthRedirectPath = (pathArg) => {
     return {
         type: actionsTypes.SET_AUTH_REDIRECT_PATH,
         path: pathArg
+    }
+}
+
+export const authCheckState = () => {
+    return dispatch => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            dispatch(logout()); //Will be fixed to login In
+        } else {
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            //if expirationDate > today date
+            if (expirationDate > new Date()) {
+                dispatch(logout()); //Will be fixed to login In
+            } else {
+                const userIdC = localStorage.getItem('userId');
+                dispatch(authSuccess(token, userIdC));
+                //The future date in seconds that's a big number and the current date in seconds and the difference of course is the expiry date, the expiry time in seconds 
+                dispatch(checkAuthTimeout(expirationDate.getSeconds() - new Date().getSeconds()))
+            }
+        }
     }
 }
