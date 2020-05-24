@@ -70,12 +70,13 @@ export const fetchOrdersStart = () => {
     }
 }
 
-export const fetchOrders = (tokenAu) => {
+export const fetchOrders = (tokenAu, userIdAu) => {
 
     return dispatch => {
         dispatch(fetchOrdersStart()); //To see the spinner for fisrt time while is starting.
 
-        axios.get('/orders.json?auth=' + tokenAu)
+        const queryParams = '?auth=' + tokenAu + '&orderBy="userId"&equalTo="' + userIdAu + '"'; //orderBy is from Firebase set
+        axios.get('/orders.json' + queryParams)
             .then(res => {
                 //Better format data in the actions than in the reducer
                 //console.log(res.data);
