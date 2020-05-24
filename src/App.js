@@ -25,13 +25,13 @@ class App extends Component {
         <Redirect to="/" />
       </Switch>
     );
-    // if is Authenticated do not need to access the path /auth
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
           <Route path="/checkout" component={Checkout} />
           <Route path="/orders" component={Orders} />
           <Route path="/logout" component={Logout} />
+          <Route path="/auth" component={Auth} />
           <Route path="/" exact component={BurgerBuilder} />
           {/* here same anything unknown redirects us back to the main page */}
           <Redirect to="/" />

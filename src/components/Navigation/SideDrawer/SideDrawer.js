@@ -17,7 +17,7 @@ const sideDrawer = (props) => {
         <Aux>
             {/* shortcut show does means show={true} but for bolean */}
             <Backdrop show={props.open} clickedback={props.closed} />
-            <div className={attachedClasses.join(' ')}>
+            <div className={attachedClasses.join(' ')} onClick={props.closed}>
                 {/* 1st Way - height here is a props, coming from syle-inline logo component
                 <Logo height="11%" />
             */}

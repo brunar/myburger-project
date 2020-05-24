@@ -4,6 +4,8 @@
     height: 100%;
     box-sizing: border-box;
     border-radius: 5px;
+    width: auto;
+    display: inline-block;
 }
 .Logo img {
     height: 100%;
