@@ -82,13 +82,13 @@ export const authCheckState = () => {
         } else {
             const expirationDate = new Date(localStorage.getItem('expirationDate'));
             //if expirationDate > today date
-            if (expirationDate > new Date()) {
+            if (expirationDate <= new Date()) {
                 dispatch(logout()); //Will be fixed to login In
             } else {
                 const userIdC = localStorage.getItem('userId');
                 dispatch(authSuccess(token, userIdC));
                 //The future date in seconds that's a big number and the current date in seconds and the difference of course is the expiry date, the expiry time in seconds 
-                dispatch(checkAuthTimeout(expirationDate.getSeconds() - new Date().getSeconds()))
+                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
             }
         }
     }
