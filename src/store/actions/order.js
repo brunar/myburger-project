@@ -33,7 +33,7 @@ export const purchaseBurger = (orderDataArgB, tokenV) => {
 
         axios.post('/orders.json?auth=' + tokenV, orderDataArgB)
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 //response.data without .name is coming the id
                 dispatchIt(purchaseBurgerSuccess(response.data.name, orderDataArgB));
             })

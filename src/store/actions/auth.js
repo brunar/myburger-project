@@ -52,7 +52,7 @@ export const auth = (emailArg, passwordArg, isSignUpArg) => {
         }
         axios.post(url, authData)
             .then(response => {
-                console.log(response);
+                //console.log(response);
                 const expirationDateC = new Date(new Date().getTime() + response.data.expiresIn * 1000); //get new date + expiration Time is seconds than multiple to be a minutes
                 localStorage.setItem('token', response.data.idToken);
                 localStorage.setItem('expirationDate', expirationDateC);
@@ -61,7 +61,7 @@ export const auth = (emailArg, passwordArg, isSignUpArg) => {
                 dispatch(checkAuthTimeout(response.data.expiresIn)); //expiresIn property from firebase, same as localId and idToken
             })
             .catch(err => {
-                console.log(err.response);
+                //console.log(err.response);
                 dispatch(authFail(err.response.data.error)); //data.error coming from Firebase object Error Message
             });
     };

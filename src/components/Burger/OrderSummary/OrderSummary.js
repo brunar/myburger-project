@@ -5,9 +5,9 @@ import Button from '../../UI/Button/Button';
 class OrderSummary extends Component {
     //This could be a functional component, does not have to be a class and do not need this lifecycle method 
     //It was only for debbug and improve performance
-    componentDidUpdate() {
-        console.log('[OrderSummary.js] DidUpdate')
-    }
+    // componentDidUpdate() {
+    //     console.log('[OrderSummary.js] DidUpdate')
+    // }
 
     render() {
         const ingredientSummary = Object.keys(this.props.ingredientsorder)

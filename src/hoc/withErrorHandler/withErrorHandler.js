@@ -17,13 +17,13 @@ const withErrorHander = (WrappedComponent, axios) => {
                 return req;
             });
             this.resInterceptor = axios.interceptors.response.use(res => res, errorObj => {
-                console.log(errorObj);
+                //console.log(errorObj);
                 this.setState({ error: errorObj });
             });
         }
         //to prevent memory should remove the Interceptors
         componentWillUnmount() {
-            console.log('Will Unmount', this.reqInterceptor, this.resInterceptor);
+            //console.log('Will Unmount', this.reqInterceptor, this.resInterceptor);
             axios.interceptors.request.eject(this.reqInterceptor);
             axios.interceptors.response.eject(this.resInterceptor);
         }
