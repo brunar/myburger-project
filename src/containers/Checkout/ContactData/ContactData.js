@@ -7,7 +7,7 @@ import classes from './ContactData.module.css';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions';
-import { updatedObject } from '../../../shared/utitily';
+import { updatedObject, checkValidity } from '../../../shared/utitily';
 
 class ContactData extends Component {
     state = {
@@ -113,29 +113,12 @@ class ContactData extends Component {
         this.props.onOrderBurger(orderG, this.props.tokenPP);
     }
 
-    checkValidity = (value, rules) => {
-        let isValid = true;
-
-        if (rules.required) {
-            //.trim() is to remove any whitesspaces at the beginning or end
-            isValid = value.trim() !== '' && isValid;
-        }
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-        return isValid; //return true or false
-
-    }
-
     inputChangedHandler = (event, inputIdentifier) => {
         //console.log(event.target.value);
 
         const updatedFormElement = updatedObject(this.state.orderForm[inputIdentifier], {
             value: event.target.value,
-            valid: this.checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
             touched: true
         });
 
