@@ -9,8 +9,8 @@ const withErrorHander = (WrappedComponent, axios) => {
         state = {
             error: null
         }
-
-        componentWillMount() {
+        //was componentWillMount but is being Gradual Migration Path
+        componentDidMount() {
             //on the request clean the error
             this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({ error: null });
