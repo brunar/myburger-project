@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import { updatedObject } from '../utitily'; // Export objects need curly braces
+import { updatedObject } from '../../shared/utitily'; // Export objects need curly braces
 
 const initialState = {
     ingredients: null,
