@@ -50,3 +50,7 @@ Inside expect, we define our, the thing we want to check so here I want to check
 
 ##### These are utility methods made available by jest
 - toHaveLength()
+
+
+Enzyme API: [http://airbnb.io/enzyme/docs/api/](http://airbnb.io/enzyme/docs/api/)
+Jest Docs: [https://facebook.github.io/jest/](https://facebook.github.io/jest/)
