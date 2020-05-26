@@ -12,11 +12,11 @@ import * as actions from '../../store/actions/index'; //index could be omitted h
 import axios from '../../axios-order';
 
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
     // constructor(props) {
     //     super(props);
     //     this.state = {...}
-    // }
+    // } 
 
     //Ingredients has to have same key-words(salad,bacon,cheese) that are using in the switch cases();
     state = {
