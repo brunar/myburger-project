@@ -1,8 +1,10 @@
 # Burger Builder Project
-Click to see the project [React Burger Builder](https://www.brunajs.com/view/react-burger/)
+To see the project [React Burger Builder](https://www.brunajs.com/view/react-burger/)
 
 
-## Testing Packages: Jest / Enzyme / React Test Renderer
+
+# Testing
+## Packages: Jest / Enzyme / React Test Renderer
 
 Jest is alredy installed by the react package
 
@@ -10,13 +12,13 @@ Jest is alredy installed by the react package
 yarn add enzyme react-test-renderer enzyme-adapter-react-16
 ```
 
-### Testing - Enzyme package 
+## Enzyme Package 
 Allows us to just render component standalone independent of the entire react application and write unit tests, isolated tests, tests where we don't need to render the complete react app.
 
 
-### Methods to define the test:
+## Methods to define the test:
 
-#### Describe Method
+### Describe Method
  describe() is a function that takes 2 arguments:
 1. description of the test bundle, what will show in the console output
 2. testing function, normal javascript function use an ES6 arrow function
@@ -41,6 +43,7 @@ describe('description item test', () => {
         const wrapper = shallow(<ComponentTest />);
         //Inside find() is not a jsx element. It's a exported function from the import of the top
         expect(wrapper.find(ComponentTestNested)).toHaveLength(2);
+        //.find(), .contains() - method from Enzyme enzyme to test for different things combined with a new method from jest .toEqual()
     })
 })
 ```
@@ -55,3 +58,6 @@ Inside expect, we define our, the thing we want to check so here I want to check
 Enzyme API: [http://airbnb.io/enzyme/docs/api/](http://airbnb.io/enzyme/docs/api/)
 
 Jest Docs: [https://facebook.github.io/jest/](https://facebook.github.io/jest/)
+
+### Testing Reducers
+Don't even need enzyme because we're not testing any react components, we don't need to render anything, we just test normal javascript code, we test functions, the reducer function. 
