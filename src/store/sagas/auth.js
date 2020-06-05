@@ -1,5 +1,6 @@
 import { delay } from 'redux-saga/effects';
 import { put } from 'redux-saga/effects';
+import axios from 'axios';
 
 import * as actions from '../actions/index';
 
@@ -18,4 +19,32 @@ export function* logoutSaga(action) {
 export function* checkAuthTimeoutSaga(action) {
     yield delay(action.expirationTime * 1000);
     yield put(actions.logout());
+}
+
+export function* authUserSaga(action) {
+    yield put(actions.authStart());
+
+    const authData = {
+        email: action.emailArg,
+        password: action.passwordArg,
+        returnSecureToken: true
+    }
+    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDVOE8w6W1Lh-s7Pog58XvH8GrzGc4eHXc';
+    if (!action.isSignUpArg) {
+        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDVOE8w6W1Lh-s7Pog58XvH8GrzGc4eHXc';
+    }
+    //Try if you can get success response otherwise catch error
+    try {
+        const response = yield axios.post(url, authData)
+        //console.log(response);
+        const expirationDateC = yield new Date(new Date().getTime() + response.data.expiresIn * 1000); //get new date + expiration Time is seconds than multiple to be a minutes
+        yield localStorage.setItem('token', response.data.idToken);
+        yield localStorage.setItem('expirationDate', expirationDateC);
+        yield localStorage.setItem('userId', response.data.localId);
+        yield put(actions.authSuccess(response.data.idToken, response.data.localId));
+        yield put(actions.checkAuthTimeout(response.data.expiresIn)); //expiresIn property from firebase, same as localId and idToken
+    } catch (err) {
+        //console.log(err.response);
+        yield put(actions.authFail(err.response.data.error)); //data.error coming from Firebase object Error Message
+    }
 }
