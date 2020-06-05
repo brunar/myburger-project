@@ -61,3 +61,36 @@ Jest Docs: [https://facebook.github.io/jest/](https://facebook.github.io/jest/)
 
 ### Testing Reducers
 Don't even need enzyme because we're not testing any react components, we don't need to render anything, we just test normal javascript code, we test functions, the reducer function. 
+
+
+# Redux Saga
+An alternative of redux-thunk to handle asynchronous actions like reaching out to a server.
+
+Redux Thunk  is a package which allows us to create action creators where we run the asynchronous code and where we then dispatch other actions.
+
+Now redux saga is a package which follows a different approach of working with asynchronous code and it doesn't mix it with the act of dispatching actions.
+
+#### Install Package
+```sh
+yarn add redux-saga
+```
+Example JSX
+```jsx
+import { put } from 'redux-saga/effects';
+
+import * as actionsTypes from '../actions/actionTypes';
+
+// generator function from Next js Generators - function*
+
+// in a generator should prefix, prepend each step we execute with the yield keyword
+// This means that this step should be executed and then it will wait for it to finish
+// so if it were an asynchronous action, it wouldn't continue before the step is done
+function* logout(actions) {
+    yield localStorage.removeItem('token');
+    yield localStorage.removeItem('expirationDate');
+    yield localStorage.removeItem('userId');
+    yield put({
+        type: actionsTypes.AUTH_LOGOUT
+    });
+}
+```
