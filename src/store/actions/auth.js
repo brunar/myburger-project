@@ -30,11 +30,17 @@ export const logout = () => {
         type: actionsTypes.AUTH_INITIATE_LOGOUT
     }
 }
+
+export const logoutSucceed = () => {
+    return {
+        type: actionsTypes.AUTH_LOGOUT
+    }
+}
 export const checkAuthTimeout = (expirationTime) => {
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(logout());
-        }, expirationTime * 1000); // to be one hour 3600
+    return {
+        type: actionsTypes.AUTH_CHECK_TIMEOUT,
+        expirationTime: expirationTime
+        //expiration time is in our checkAuthTimeoutSaga (I do not refer to the argument expirationTime, but to the action)
     }
 }
 export const auth = (emailArg, passwordArg, isSignUpArg) => {
