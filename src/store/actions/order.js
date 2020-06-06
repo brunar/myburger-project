@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-order';
 
 // Synchronous action creators
 export const purchaseBurgerSuccess = (id, orderDataArg) => {
@@ -27,19 +26,10 @@ export const purchaseBurgerStart = () => {
 
 // Async - Asynchronous action creators
 export const purchaseBurger = (orderDataArgB, tokenV) => {
-    return dispatchIt => {
-
-        dispatchIt(purchaseBurgerStart());
-
-        axios.post('/orders.json?auth=' + tokenV, orderDataArgB)
-            .then(response => {
-                //console.log(response.data);
-                //response.data without .name is coming the id
-                dispatchIt(purchaseBurgerSuccess(response.data.name, orderDataArgB));
-            })
-            .catch(error => {
-                dispatchIt(purchaseBurgerFail(error));
-            })
+    return {
+        type: actionTypes.PURCHASE_BURGER,
+        orderDataArgB: orderDataArgB,
+        tokenV: tokenV
     }
 };
 
@@ -71,28 +61,9 @@ export const fetchOrdersStart = () => {
 }
 
 export const fetchOrders = (tokenAu, userIdAu) => {
-
-    return dispatch => {
-        dispatch(fetchOrdersStart()); //To see the spinner for fisrt time while is starting.
-
-        const queryParams = '?auth=' + tokenAu + '&orderBy="userId"&equalTo="' + userIdAu + '"'; //orderBy is from Firebase set
-        axios.get('/orders.json' + queryParams)
-            .then(res => {
-                //Better format data in the actions than in the reducer
-                //console.log(res.data);
-                const fetchedOrders = [];
-                for (let key in res.data) {
-                    fetchedOrders.push({
-                        //spread old object to make a new Object with id
-                        ...res.data[key],
-                        id: key
-                    });
-                }
-                dispatch(fetchOrdersSuccess(fetchedOrders));
-            })
-            .catch(err => {
-                dispatch(fetchOrdersFail(err));
-            });
+    return {
+        type: actionTypes.FETCH_ORDERS,
+        tokenAu: tokenAu,
+        userIdAu: userIdAu
     }
-
 }
