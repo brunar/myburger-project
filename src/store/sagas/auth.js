@@ -48,3 +48,21 @@ export function* authUserSaga(action) {
         yield put(actions.authFail(err.response.data.error)); //data.error coming from Firebase object Error Message
     }
 }
+
+export function* authCheckStateSaga(action) {
+    const token = yield localStorage.getItem('token');
+    if (!token) {
+        yield put(actions.logout()); //Will be fixed to login In
+    } else {
+        const expirationDate = yield new Date(localStorage.getItem('expirationDate'));
+        //if expirationDate > today date
+        if (expirationDate <= new Date()) {
+            yield put(actions.logout()); //Will be fixed to login In
+        } else {
+            const userIdC = yield localStorage.getItem('userId');
+            yield put(actions.authSuccess(token, userIdC));
+            //The future date in seconds that's a big number and the current date in seconds and the difference of course is the expiry date, the expiry time in seconds 
+            yield put(actions.checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
+        }
+    }
+}
