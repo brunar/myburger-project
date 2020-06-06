@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-order';
 
 export const addIngredient = (name) => {
     //Properties should be same name using in mapDispatchToProps
@@ -30,14 +29,7 @@ export const fetchIngredientsFailed = () => {
 }
 
 export const initIngredients = () => {
-    // this syntax is available due to redux-thunk
-    return dispathBr => {
-        axios.get('https://myburger-react-ea3fc.firebaseio.com/ingredients.json')
-            .then(response => {
-                dispathBr(setIngredients(response.data))
-            })
-            .catch(error => {
-                dispathBr(fetchIngredientsFailed(error))
-            });
+    return {
+        type: actionTypes.INIT_INGREDIENTS
     }
 }
