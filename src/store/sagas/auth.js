@@ -1,8 +1,11 @@
 import { delay } from 'redux-saga/effects';
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import axios from 'axios';
 
 import * as actions from '../actions/index';
+
+// Call function - makes your generators testable because you can easily mock this 
+// and not really execute this code whilst you always need to execute it down there.
 
 // generator function from Next js Generators - function*
 
@@ -10,9 +13,9 @@ import * as actions from '../actions/index';
 // This means that this step should be executed and then it will wait for it to finish
 // so if it were an asynchronous action, it wouldn't continue before the step is done
 export function* logoutSaga(action) {
-    yield localStorage.removeItem('token');
-    yield localStorage.removeItem('expirationDate');
-    yield localStorage.removeItem('userId');
+    yield call([localStorage, 'removeItem'], "token");
+    yield call([localStorage, 'removeItem'], "expirationDate");
+    yield call([localStorage, 'removeItem'], "userId");
     yield put(actions.logoutSucceed());
 }
 

@@ -94,3 +94,7 @@ function* logout(actions) {
     });
 }
 ```
+
+[https://redux-saga.js.org/](https://redux-saga.js.org/)
+
+The whole idea behind redux saga really is to make sure your action creators are lean, that you don't run any side effects in there but that you instead handle these side effects in your sagas, that you have one place where you have all the side effects and one place where you have all the actions and that you don't mix that.
