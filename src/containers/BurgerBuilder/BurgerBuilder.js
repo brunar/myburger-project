@@ -20,10 +20,11 @@ export const BurgerBuilder = props => {
     const [purchasing, setPurchasing] = useState(false);
 
     //componentDidMount lifecycle method to fetching the data
+    const { onInitIngredients } = props;
     useEffect(() => {
-        //console.log(props);
-        props.onInitIngredients();
-    }, []);
+        //console.log(onInitIngredients);
+        onInitIngredients();
+    }, [onInitIngredients]);
 
     const updatePurchaseState = (ingredients) => {
         //creating an Array for ingredients each el ex double cheese

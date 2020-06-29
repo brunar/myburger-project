@@ -41,11 +41,14 @@ const Auth = props => {
     });
     const [isSignUp, setIsSignUp] = useState(true);
 
+
+    const { buildingBurger, authRedirectPathPP, onSetAuthRedirectPath } = props;
     useEffect(() => {
-        if (!props.buildingBurger && props.authRedirectPathPP !== '/') {
-            props.onSetAuthRedirectPath(); //Do not need to pass an Argument here because is alredy hardcode in mapDispatchToProps, And there is not passing by Argument
+        if (!buildingBurger && authRedirectPathPP !== '/') {
+            onSetAuthRedirectPath(); //Do not need to pass an Argument here because is alredy hardcode in mapDispatchToProps, And there is not passing by Argument
         }
-    }, []);
+    }, [buildingBurger, authRedirectPathPP, onSetAuthRedirectPath]);
+
 
     const inputChangedHandler = (event, controlName) => {
         const updatedControls = updatedObject(authForm, {
