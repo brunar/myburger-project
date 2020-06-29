@@ -39,7 +39,7 @@ export const BurgerBuilder = props => {
     }
 
     const purchaseHandler = () => {
-        if (this.props.isAuthenticated) {
+        if (props.isAuthenticated) {
             setPurchasing(true);
         } else {
             props.onSetAuthRedirectPath('/checkout');
